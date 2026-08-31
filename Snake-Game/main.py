@@ -1,4 +1,4 @@
-from turtle import Screen
+from turtle import Screen,Turtle
 import time
 
 from food import Food
@@ -36,22 +36,27 @@ while game_is_on:
     time.sleep(0.1)
 
     snake.move()
-
+    scoreboard.current_score()
 
 
     if snake.head.distance(food) < 15:
         scoreboard.score+=1
         scoreboard.clear()
-        scoreboard.write(f"current score is:{scoreboard.score}", align="left", font=("Courier", 12, "normal"))
         snake.add_segment()
         snake.extend()
         food.refresh()
 
 
 
+
     if  snake.head.xcor()>280 or snake.head.xcor()<-280 or snake.head.ycor()<-280 or snake.head.ycor()>280:
-        game_is_on=False
-        scoreboard.game_over()
+        scoreboard.reset()
+        scoreboard.clear()
+        scoreboard.current_score()
+        snake.reset()
+
+
+
 
 
     for segment in snake.segments[1:]:
@@ -60,9 +65,12 @@ while game_is_on:
         # bölümünü kullanmak istyorsak o zaman slicing yapmak mantıklı baya
 
         if snake.head.distance(segment)<10:
+            scoreboard.clear()
+            scoreboard.reset()
 
-            game_is_on=False
-            scoreboard.game_over()
+            scoreboard.current_score()
+            snake.reset()
+
 
 
 
@@ -84,4 +92,3 @@ while game_is_on:
 
 
 screen.exitonclick()
-

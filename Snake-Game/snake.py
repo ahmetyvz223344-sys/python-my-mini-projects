@@ -4,10 +4,12 @@ up=90
 down=270
 right=0
 left=180
-positions=[(0,0),(-20,0),(-40,0)]
+
 move_distance=20
-class Snake:
+class Snake(Turtle):
     def __init__(self):
+        super().__init__()
+        self.position=[(0,0),(-20,0),(-40,0)]
         self.segments=[]
         self.create_snake()
         self.head=self.segments[0]
@@ -15,7 +17,7 @@ class Snake:
 
 
     def create_snake(self):
-        for position in positions:
+        for position in self.position:
             new_segment = Turtle("square")
             new_segment.color("white")
             new_segment.penup()
@@ -72,3 +74,14 @@ class Snake:
             self.head.setheading(left)
 
 
+
+
+
+    def reset(self):
+        for segment in self.segments:
+            segment.goto(1000,1000)
+        self.segments.clear()
+        self.create_snake()
+        self.head=self.segments[0]
+
+        self.move()
